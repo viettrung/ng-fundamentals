@@ -1,18 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { EventsAppComponent } from './events-app.component';
-import { EventsListComponent } from "./events/events-list.component";
-import { EventThumbnailComponent } from "./events/events-thumbnail.component";
-import { NavBarComponent } from "./nav/navbar.components";
-import { EventService } from "./events/shared/event.service";
-import { ToastrService } from './common/toastr.service';
-import { EventDetailsComponent } from './events/event-details/event-details.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
-import { CreateEventComponent } from './events/create-event.component';
+
+import {
+  EventsListComponent,
+  EventThumbnailComponent,
+  EventService,
+  EventDetailsComponent,
+  CreateEventComponent,
+  EventRouteActivator,
+  EventListResolver
+} from './events/index'
+
 import { Error404Component } from './errors/404.component';
-import { EventRouteActivator } from './events/event-details/event-route-activator.service';
+import { ToastrService } from './common/toastr.service';
+import { EventsAppComponent } from './events-app.component';
+import { NavBarComponent } from './nav/navbar.components';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,7 @@ import { EventRouteActivator } from './events/event-details/event-route-activato
     EventService, 
     ToastrService, 
     EventRouteActivator,
+    EventListResolver,
     {
         provide: 'canDeactivateCreateEvent', 
         useValue: checkDirtyState
