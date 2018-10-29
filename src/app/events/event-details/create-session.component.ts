@@ -1,10 +1,18 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators, FormGroup } from "@angular/forms";
-import { ISession } from "../shared";
+import { ISession, restrictedWords } from "../shared";
 
 
 @Component({
-    templateUrl: './create-session.component.html'
+    templateUrl: './create-session.component.html',
+    styles: [`
+        em {float: right; color: #E05C65; padding-left: 10px;}
+        .error input, .error select, .error textarea {background-color: #E3C3C5;}
+        .error ::-webkit-input-placeholder {color: #999;}
+        .error ::-moz-placeholder {color: #999;}
+        .error :-moz-placeholder {color: #999;}
+        .error :ms-input-placeholder {color: #999;}
+    `]
 })
 
 export class CreateSessionComponent implements OnInit {
@@ -20,7 +28,8 @@ export class CreateSessionComponent implements OnInit {
         this.presenter = new FormControl('', Validators.required)
         this.duration = new FormControl('', Validators.required)
         this.level = new FormControl('', Validators.required)
-        this.abstract = new FormControl('', [Validators.required, Validators.maxLength(400)])
+        this.abstract = new FormControl('', [Validators.required, 
+            Validators.maxLength(400), restrictedWords(['foo', 'bar'])])
 
         this.newSessionForm = new FormGroup({
             name: this.name,
@@ -30,6 +39,8 @@ export class CreateSessionComponent implements OnInit {
             abstract: this.abstract
         })
     }
+
+    
 
     saveSession(formValues) {
         
